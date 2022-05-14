@@ -1,0 +1,42 @@
+<h1>Actionable Notification List</h1>
+<ng-template [ngIf]="actionLists">
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let element of actionLists" hideToggle>
+          <mat-expansion-panel-header (click)="viewMode(element)">
+            <mat-panel-title>
+                {{element.message}}
+            </mat-panel-title>
+            <mat-panel-description *ngIf="element.from.name">
+              <small>By {{element.from.name}}</small>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template [ngIf]="element.description">
+            <p>{{element.description}}</p>
+          </ng-template> 
+          <ng-template [ngIf]="!element.description">
+            <p>View Report</p>
+          </ng-template> 
+          <ng-template [ngIf]="element.actions">
+            <div *ngIf="control!=='file'">
+                <div *ngFor="let e of label">
+                    <input type="checkbox">
+                    {{e.config.label}}
+                </div>
+            </div>
+            <br>
+            <input value="Submit" type={{control}}/>
+            <button mat-raised-button color="primary" *ngIf="control=='file'">Upload</button>
+          </ng-template> 
+          <ng-template [ngIf]="!element.actions">
+              <div *ngFor="let ele of attachmentsDetails">
+                  <label for="">Name : </label>            
+                  <span style="color: blue; cursor: pointer;">{{ele.name}}</span>
+                  <br>
+                  <label for=""> URL : </label> 
+                  <span style="color: blue; cursor: pointer;">{{ele.url}}</span>
+              </div>
+          </ng-template>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ng-template>
+<ng-template [ngIf]="!actionLists"> <small> No Notifications</small></ng-template>
