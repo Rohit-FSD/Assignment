@@ -29,6 +29,7 @@ export class NotificationListComponent implements OnInit {
     if(element.actions){
       for(let i=0;i<element.actions.length;i++){
         this.control=(element.actions[i].control);
+        break;
       }
       this.label=element.actions;
     }
